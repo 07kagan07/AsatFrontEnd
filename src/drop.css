@@ -1,0 +1,14 @@
+.app {
+  /* 
+  
+  
+  
+  height: 100vh; */
+  align-items: center;
+  flex-direction: column;
+  display: flex;
+  justify-content: center;
+}
+.dropdown-container {
+  width: 300px;
+}

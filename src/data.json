@@ -1,0 +1,35 @@
+{
+  "Yemekler": [
+    {
+      "Tarih": "01.08.2022",
+      "Gun": "Pazartesi",
+      "Yemek": "Domates Çorbası, Tavuk, Pilav, Su"
+    },
+    {
+      "Tarih": "02.08.2022",
+      "Gun": "Salı",
+      "Yemek": "Mercimek Çorbası, Köfte, Pilav, Su"
+    },
+    {
+      "Tarih": "03.08.2022",
+      "Gun": "Çarşamba",
+      "Yemek": "Yayla Çorbası, Biber Dolması, Yoğurt, Su"
+    },
+    {
+      "Tarih": "04.08.2022",
+      "Gun": "Perşembe",
+      "Yemek": "Sebze Çorbası, Türlü, Makarna, Su"
+    },
+    {
+      "Tarih": "05.08.2022",
+      "Gun": "Cuma",
+      "Yemek": "Mantar Çorbası, Rosto, Patates Püresi, Kola"
+    }
+  ],
+  "Rezervasyon": [{ "id": [] }, { "count": 0 }],
+  "Users": [
+    { "userId": 180254005, "userName": "Kağan", "password": "4005" },
+    { "userId": 210803006, "userName": "Yağmur", "password": "3006" },
+    { "userId": 190709055, "userName": "Mehmet Can", "password": "9055" }
+  ]
+}

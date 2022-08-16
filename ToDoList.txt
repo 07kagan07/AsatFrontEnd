@@ -1,0 +1,4 @@
+autoComplate'e o günün menu verisini göster.
+Yemek ekleme componentinin css düzenle.
+gün verisini düzelt.
+ 
