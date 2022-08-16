@@ -17,7 +17,7 @@ const axios = require("axios").default;
 const testAxios = () => {
   const [value, setValue] = useState(new Date().toISOString().substring(0, 10));
 
-  console.log("Tarih Test", value);
+  console.log("Tarih Test=>", value);
 
   return (
     <Grid>
