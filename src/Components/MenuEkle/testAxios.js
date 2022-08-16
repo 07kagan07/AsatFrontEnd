@@ -12,12 +12,17 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import trLocale from "date-fns/locale/tr";
 import isWeekend from "date-fns/isWeekend";
-
-import Chip from "@mui/material/Chip";
+//import Chip from "@mui/material/Chip";
 const axios = require("axios").default;
 
 const testAxios = () => {
+  //-----------------AUTOCOMPLATE---------------------
+
   const [Foods, setFoods] = useState([]);
+
+  const defaultOptions = [Foods[0], Foods[1]];
+  const [value, setValue] = useState([...defaultOptions]);
+
   const foodList = () => {
     axios
       .get("http://localhost:3000/food")
@@ -31,15 +36,44 @@ const testAxios = () => {
   useEffect(() => {
     foodList();
   }, []);
-  const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
 
-  const fixedOptions = [Foods[0]];
-  const [value, setValue] = React.useState([Foods[1]]);
   if (typeof value !== "undefined") {
     console.log("AutoComplate Test=>", ...value);
   }
+
+  //-----------------AUTOCOMPLATE---------------------
+
+  //-----------------DATEPİCKER-----------------------
+
+  const [date, setDate] = useState(new Date().toISOString().substring(0, 10));
+  const [dateID, setDateID] = useState();
+  const getDateId = () => {
+    axios
+      .post("http://localhost:3000/date/find", {
+        meal_date: date,
+      })
+      .then(function(response) {
+        setDateID(response.data.id);
+        console.log("Response Data=> ", response.data.id);
+      })
+      .catch(function(error) {
+        console.log(error.data);
+      });
+  };
+
+  useEffect(() => {
+    getDateId();
+  }, [date]);
+
+  console.log(dateID);
+  //-----------------DATEPİCKER-----------------------
+
+  const changeDate = () => {
+    setDate("2022-08-22");
+  };
+
   return (
-    <Grid container>
+    <Grid container className="py-2">
       <Grid item xs={3}>
         <LocalizationProvider
           dateAdapter={AdapterDateFns}
@@ -59,45 +93,50 @@ const testAxios = () => {
           </Stack>
         </LocalizationProvider>
       </Grid>
-      <Grid item xs={6}>
-        <Autocomplete
-          multiple={true}
-          id="fixed-tags-demo"
-          value={Foods[0]}
-          onChange={(event, newValue) => {
-            setValue([...newValue]);
-          }}
-          options={Foods}
-          getOptionLabel={(option) => option.food}
-          // renderTags={(tagValue, getTagProps) =>
-          //   tagValue.map((option, index) => (
-          //     <Chip
-          //       label={option.food}
-          //       {...getTagProps({ index })}
-          //       disabled={fixedOptions.indexOf(option) !== -1}
-          //     />
-          //   ))
-          // }.filter(
-          // (option) => fixedOptions.indexOf(option) === -1
-          //),
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Yemek Seçiniz"
-              placeholder="Ekleyiniz"
-            />
-          )}
-        />
+      <Grid item xs={7} className="mx-2">
+        {Foods.length > 0 && (
+          <Autocomplete
+            multiple={true}
+            id="fixed-tags-demo"
+            defaultValue={defaultOptions}
+            onChange={(event, newValue) => {
+              setValue([...newValue]);
+            }}
+            options={Foods}
+            getOptionLabel={(option) => option.food}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Yemek Seçiniz"
+                placeholder="Ekleyiniz"
+              />
+            )}
+          />
+        )}
       </Grid>
-      <Grid item xs={2}>
-        <input value={"Kaydet"} className="btn btn-primary"></input>
+      <Grid item xs={1} className="py-2 ">
+        <input
+          onClick={changeDate}
+          value={"Kaydet"}
+          className="btn btn-primary"
+          readOnly={true}
+        ></input>
       </Grid>
     </Grid>
   );
 };
 
-const top100Films = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-];
 export default testAxios;
+
+// renderTags={(tagValue, getTagProps) =>
+//   tagValue.map((option, index) => (
+//     <Chip
+//       label={option.food}
+//       {...getTagProps({ index })}
+//       disabled={fixedOptions.indexOf(option) !== -1}
+//     />
+//   ))
+// }
+// .filter(
+// (option) => fixedOptions.indexOf(option) === -1
+// ),
