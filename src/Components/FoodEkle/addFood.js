@@ -11,7 +11,7 @@ const EkleFood = () => {
   const { register, handleSubmit, setValue } = useForm();
   const onSubmit = (data) => {
     axios
-      .post("http://localhost:3000/food/add", {
+      .post(process.env.REACT_APP_LOCAL_IP + "/food/add", {
         ...data,
       })
       .then(function(response) {

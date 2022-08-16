@@ -21,7 +21,7 @@ export default function TarihSec(props) {
     });
     const axios = require("axios").default;
     axios
-      .post("http://localhost:3000/date/add", {
+      .post(process.env.REACT_APP_LOCAL_IP + "/date/add", {
         meal_date: value,
         meal_day: day,
       })

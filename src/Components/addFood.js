@@ -15,7 +15,7 @@ export default class AddFood extends React.Component {
     event.preventDefault();
 
     axios
-      .post("http://localhost:3000/food/add", {
+      .post(process.env.REACT_APP_LOCAL_IP + "/food/add", {
         ...obje,
       })
       .then(function(response) {

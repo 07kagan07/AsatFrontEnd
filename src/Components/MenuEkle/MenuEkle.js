@@ -69,18 +69,17 @@ export default function menu() {
     //console.log(new Date(value).toISOString().substring(0, 10));
 
     axios
-      .post("http://localhost:3000/date/add", {
+      .post(process.env.REACT_APP_LOCAL_IP + "/date/add", {
         meal_date: value,
         meal_day: day,
       })
       .then(function(response) {
         setDateId(response.data.id);
-        yazdir();
+
         ////console.log("Response Data=> ", response.data.id);
       })
       .catch(function(error) {
         getDateId();
-        yazdir();
       });
   };
 
@@ -95,7 +94,7 @@ export default function menu() {
   const yazdir = () => {
     selectValues.map((id) =>
       axios
-        .post("http://localhost:3000/meal/add", {
+        .post(process.env.REACT_APP_LOCAL_IP + "/meal/add", {
           foodId: id,
           meal_id: dateId,
         })
@@ -111,7 +110,7 @@ export default function menu() {
 
   const getDateId = () => {
     axios
-      .post("http://localhost:3000/date/find", {
+      .post(process.env.REACT_APP_LOCAL_IP + "/date/find", {
         meal_date: value,
       })
       .then(function(response) {
@@ -129,14 +128,14 @@ export default function menu() {
     //console.log(dateId);
 
     axios
-      .post("http://localhost:3000/meal/find", {
+      .post(process.env.REACT_APP_LOCAL_IP + "/meal/find", {
         meal_id: dateId,
       })
       .then(function(response) {
         //(response.data.map((e) => e.foodId));
         // response.data.map((e) =>
         //   axios
-        //     .post("http://localhost:3000/food/find", {
+        //     .post(process.env.REACT_APP_LOCAL_IP + "/food/find", {
         //       id: e.foodId,
         //     })
         //     .then(function(res) {

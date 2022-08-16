@@ -2,60 +2,85 @@ import React, { useEffect, useState } from "react";
 import MUIDataTable from "mui-datatables";
 import { useSelector, useDispatch } from "react-redux";
 import { setMenuGonder } from "../../Slices/addMenuSlice";
+import { setUpdateMeal } from "../../Slices/updateMealSlice";
+
 const axios = require("axios").default;
 
-const columns = [
-  {
-    name: "meal_day",
-    label: "Gün",
-    options: {
-      filter: true,
-      sort: false,
-    },
-  },
-  {
-    name: "meal_date",
-    label: "Tarih",
-    options: {
-      filter: true,
-      sortOrder: false,
-    },
-  },
-  {
-    name: "yemekListe",
-    label: "Menü",
-    options: {
-      filter: true,
-      sort: false,
-    },
-  },
-];
-
-const options = {
-  filterType: "checkbox",
-  rowsPerPage: 5,
-  rowsPerPageOptions: [],
-  showResponsive: true,
-  search: false,
-  downloadCsv: false,
-  print: false,
-  viewColumns: false,
-  filter: false,
-  textLabels: {
-    body: {
-      noMatch: "Yemeğinin Hepsini Ben Yedim!!",
-    },
-  },
-};
-
 const menuTable = () => {
+  const dispatch = useDispatch();
   const [Menu, setMenu] = useState([]);
   const durumMenu = useSelector((state) => state.addMenu.menuGonderildiMi);
 
-  const dispatch = useDispatch();
+  const columns = [
+    {
+      name: "id",
+      options: { filter: false, display: false, viewColumns: false },
+    },
+    {
+      name: "meal_day",
+      label: "Gün",
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+    {
+      name: "meal_date",
+      label: "Tarih",
+      options: {
+        filter: true,
+        sortOrder: false,
+      },
+    },
+    {
+      name: "yemekListe",
+      label: "Menü",
+
+      options: {
+        filter: true,
+        sort: false,
+      },
+    },
+
+    {
+      name: "",
+      options: {
+        customBodyRender: (value, tableMeta) => {
+          return (
+            <button
+              className="btn"
+              onClick={() => {
+                dispatch(setUpdateMeal(tableMeta.rowData[2]));
+              }}
+            >
+              Düzenle
+            </button>
+          );
+        },
+      },
+    },
+  ];
+
+  const options = {
+    filterType: "checkbox",
+    rowsPerPage: 5,
+    rowsPerPageOptions: [],
+    showResponsive: true,
+    search: false,
+    downloadCsv: false,
+    print: false,
+    viewColumns: false,
+    filter: false,
+    textLabels: {
+      body: {
+        noMatch: "Yemeğinin Hepsini Ben Yedim!!",
+      },
+    },
+  };
+
   const menuListele = () => {
     axios
-      .get("http://localhost:3000/meal")
+      .get(process.env.REACT_APP_LOCAL_IP + "/meal")
       .then(function(response) {
         // handle success
         const a = response.data.map((q) => {
@@ -86,12 +111,14 @@ const menuTable = () => {
   }, [durumMenu]);
 
   return (
-    <MUIDataTable
-      title={"Yemek Tablosu"}
-      data={Menu}
-      columns={columns}
-      options={options}
-    />
+    <div>
+      <MUIDataTable
+        title={"Yemek Tablosu"}
+        data={Menu}
+        columns={columns}
+        options={options}
+      />
+    </div>
   );
 };
 

@@ -24,8 +24,9 @@ const testAxios = () => {
   const [value, setValue] = useState([...defaultOptions]);
 
   const foodList = () => {
+    console.log("asd", process.env.REACT_APP_LOCAL_IP);
     axios
-      .get("http://localhost:3000/food")
+      .get(process.env.REACT_APP_LOCAL_IP + "/food")
       .then(function(response) {
         setFoods(response.data);
       })
@@ -49,7 +50,7 @@ const testAxios = () => {
   const [dateID, setDateID] = useState();
   const getDateId = () => {
     axios
-      .post("http://localhost:3000/date/find", {
+      .post(process.env.REACT_APP_LOCAL_IP + "/date/find", {
         meal_date: date,
       })
       .then(function(response) {
@@ -61,6 +62,8 @@ const testAxios = () => {
       });
   };
 
+  const mealDate = useSelector((state) => state.updateMeal.mealDate);
+
   useEffect(() => {
     getDateId();
   }, [date]);
@@ -68,8 +71,12 @@ const testAxios = () => {
   console.log(dateID);
   //-----------------DATEPİCKER-----------------------
 
+  useEffect(() => {
+    changeDate();
+  }, [mealDate]);
+
   const changeDate = () => {
-    setDate("2022-08-22");
+    console.log(mealDate);
   };
 
   return (

@@ -8,7 +8,7 @@ const btnMenu = (props) => {
     });
     const axios = require("axios").default;
     axios
-      .post("http://localhost:3000/date/add", {
+      .post(process.env.REACT_APP_LOCAL_IP + "/date/add", {
         meal_date: props.menu.tarih,
         meal_day: day,
       })
@@ -29,7 +29,7 @@ const btnMenu = (props) => {
 
     props.menu.yemekListe.map((id) =>
       axios
-        .post("http://localhost:3000/meal/add", {
+        .post(process.env.REACT_APP_LOCAL_IP + "/meal/add", {
           foodId: id,
           meal_id: 3,
         })

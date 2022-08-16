@@ -25,7 +25,7 @@ export default function DataTable() {
 
   const menuListele = () => {
     axios
-      .get("http://localhost:3000/meal")
+      .get(process.env.REACT_APP_LOCAL_IP + "/meal")
       .then(function(response) {
         // handle success
         const a = response.data.map((q) => {
