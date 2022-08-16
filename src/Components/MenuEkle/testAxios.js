@@ -30,7 +30,7 @@ const testAxios = () => {
             <MobileDatePicker
               shouldDisableDate={isWeekend}
               disablePast="true"
-              label="Menü Tarihi"
+              label="Menü Tarihi Seçiniz"
               value={value}
               onChange={(newValue) => {
                 setValue(new Date(newValue).toISOString().substring(0, 10));
