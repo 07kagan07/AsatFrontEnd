@@ -32,7 +32,7 @@ export default function menu() {
       })
       .catch(function(error) {
         // handle error
-        console.log(error);
+        //console.log(error);
       });
   };
 
@@ -42,7 +42,7 @@ export default function menu() {
   }, [durumFood]);
 
   const [selectValues, setSelectValues] = useState([]);
-  console.log(selectValues);
+  //console.log(selectValues);
   const getValues = (e, selections) => {
     setSelectValues(selections.map((q) => q.id));
   };
@@ -66,7 +66,7 @@ export default function menu() {
       weekday: "long",
     });
 
-    console.log(new Date(value).toISOString().substring(0, 10));
+    //console.log(new Date(value).toISOString().substring(0, 10));
 
     axios
       .post("http://localhost:3000/date/add", {
@@ -76,7 +76,7 @@ export default function menu() {
       .then(function(response) {
         setDateId(response.data.id);
         yazdir();
-        //console.log("Response Data=> ", response.data.id);
+        ////console.log("Response Data=> ", response.data.id);
       })
       .catch(function(error) {
         getDateId();
@@ -87,7 +87,7 @@ export default function menu() {
   const [dateId, setDateId] = useState();
 
   useEffect(() => {
-    console.log("date id değişti");
+    //console.log("date id değişti");
     yazdir();
     //getFoodByDate();
   }, [dateId]);
@@ -100,11 +100,11 @@ export default function menu() {
           meal_id: dateId,
         })
         .then(function(response) {
-          console.log(response);
+          //console.log(response);
           dispatch(setMenuGonder(true));
         })
         .catch(function(error) {
-          console.log(error);
+          //console.log(error);
         })
     );
   };
@@ -116,17 +116,17 @@ export default function menu() {
       })
       .then(function(response) {
         setDateId(response.data.id);
-        console.log("Response Data=> ", response.data.id);
+        //console.log("Response Data=> ", response.data.id);
       })
       .catch(function(error) {
-        console.log(error.data);
+        //console.log(error.data);
       });
   };
 
   const [defaultOption, setDefaultOption] = useState([]);
 
   const getFoodByDate = () => {
-    console.log(dateId);
+    //console.log(dateId);
 
     axios
       .post("http://localhost:3000/meal/find", {
@@ -140,7 +140,7 @@ export default function menu() {
         //       id: e.foodId,
         //     })
         //     .then(function(res) {
-        //       console.log("FOoods=>", res.data);
+        //       //console.log("FOoods=>", res.data);
         //     })
         // );
       });
@@ -152,8 +152,8 @@ export default function menu() {
     setDateIdState(dateidstate ? false : true);
     setDateIdStatename(dateidstate ? "Date ID Getir" : "Kapalı");
   };
-  console.log("Default Option=>", defaultOption);
-  console.log("SelectValues=>", selectValues);
+  //console.log("Default Option=>", defaultOption);
+  //console.log("SelectValues=>", selectValues);
 
   return (
     <Grid container spacing={2} className="py-2">
